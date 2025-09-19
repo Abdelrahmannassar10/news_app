@@ -5,7 +5,7 @@ class NewsService {
   final Dio dio;
 
   NewsService(this.dio);
-  Future<List<AtricleModel>> Getgeneralnews({required String category }) async {
+  Future<List<AtricleModel>> Getgeneralnews({required String category}) async {
     try {
       Response response = await dio.get(
           'https://newsdata.io/api/1/latest?apikey=pub_77164050251f3331fb545eeae9c30c88c155c&country=eg&category=$category');
@@ -13,10 +13,7 @@ class NewsService {
       List<dynamic> articlels = JsonData["results"];
       List<AtricleModel> articleslist = [];
       for (var article in articlels) {
-        AtricleModel atricleModel = AtricleModel(
-            image: article['image_url'],
-            title: article['title'],
-            subTitle: article['description']);
+        AtricleModel atricleModel = AtricleModel.fromJson(article);
         articleslist.add(atricleModel);
       }
       return articleslist;
